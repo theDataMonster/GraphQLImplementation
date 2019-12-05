@@ -1,0 +1,53 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    allLinks(filter: LinkFilter): [Link]
+}
+
+input LinkFilter{
+description_contains: String
+url_contains: String
+}
+
+type Link {
+	id: String
+    url: String!
+    description: String!
+    postedBy: User2
+}
+
+type Mutation {
+  createLink(url: String!, description: String!): Link
+  createUser(name: String!, authProvider: AuthData!): User2
+  signinUser(auth: AuthData): SigninPayload
+  createVote(linkId :ID, userId: ID): Vote
+}
+
+type Vote{
+id: ID!
+createdAt: DateTime!
+user: User2!
+link: Link!
+}
+
+type SigninPayload {
+  token: String
+  user: User2
+}
+
+type User2 {
+      id: String
+      name: String!
+      email: String
+      password: String
+    }
+    
+    input AuthData {
+      email: String!
+      password: String!
+    }
+
+scalar DateTime
