@@ -7,19 +7,18 @@ public class User2 {
 	private final String id;
 	private final String name;
 	private final String email;
-	private final String password;
 	
-	public User2(String name, String email, String password)
+	public User2(String name, String email)
 	{
-		this(UUID.randomUUID().toString(),name,email,password);
+		this(UUID.randomUUID().toString(),name,email);
 	}
 	
-	public User2(String id, String name, String email, String password)
+	public User2(String id, String name, String email)
 	{
 		this.id=id;
 		this.name=name;
 		this.email=email;
-		this.password=password;
+		
 	}
 	
 
@@ -35,7 +34,5 @@ public class User2 {
 		return email;
 	}
 
-	public String getPassword() {
-		return password;
-	}
+	
 }

@@ -1,3 +1,4 @@
+com\GraphQL\Example\Auth\IdTokenVerifierAndParser.class
 com\GraphQL\Example\LinkQuery\Query.class
 com\GraphQL\Example\Resolver\LinkResolver.class
 com\GraphQL\Example\LinkQuery\Mutation.class
@@ -18,3 +19,4 @@ com\GraphQL\Example\Auth\AuthContext.class
 com\GraphQL\Example\GraphQLEndpoint.class
 com\GraphQL\Example\HelloAppEngine.class
 com\GraphQL\Example\model\User2.class
+com\GraphQL\Example\OAuthIntegration\LoginServlet.class

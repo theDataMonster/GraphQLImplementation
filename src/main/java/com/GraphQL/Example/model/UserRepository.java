@@ -44,7 +44,7 @@ public class UserRepository {
 		e.setIndexedProperty("id",  user.getId());
 		e.setIndexedProperty("name", user.getName());
 		e.setIndexedProperty("email", user.getEmail());
-		e.setIndexedProperty("password",user.getPassword());
+//		e.setIndexedProperty("password",user.getPassword());
 		
 		datastore.put(e);
 		
@@ -58,7 +58,7 @@ public class UserRepository {
 			return null;
 		}
 		
-		return new User2(e.getProperty("id").toString(), e.getProperty("name").toString(), e.getProperty("email").toString(),e.getProperty("password").toString());
+		return new User2(e.getProperty("id").toString(), e.getProperty("name").toString(), e.getProperty("email").toString());
 	}
 
 }

@@ -1,10 +1,13 @@
 package com.GraphQL.Example.LinkQuery;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 import com.GraphQL.Example.Auth.AuthContext;
+import com.GraphQL.Example.Auth.IdTokenVerifierAndParser;
 import com.GraphQL.Example.model.AuthData;
 import com.GraphQL.Example.model.Link;
 import com.GraphQL.Example.model.LinkRepository;
@@ -14,6 +17,7 @@ import com.GraphQL.Example.model.UserRepository;
 import com.GraphQL.Example.model.Vote;
 import com.GraphQL.Example.model.VoteRepository;
 import com.coxautodev.graphql.tools.GraphQLRootResolver;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 
 import graphql.GraphQLException;
 import io.leangen.graphql.annotations.GraphQLMutation;
@@ -48,23 +52,30 @@ public class Mutation implements GraphQLRootResolver{
 	}
 	
 	@GraphQLMutation
-	public User2 createUser(String name, AuthData auth)
+	public User2 createUser(String name, String token)
 	{
-		User2 newUser=new User2(name, auth.getEmail(), auth.getPassword());
+		GoogleIdToken.Payload payload=null;
+		try {
+			payload = IdTokenVerifierAndParser.getPayload(token);
+		} catch (IOException | GeneralSecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		User2 newUser=new User2((String) payload.get("name"), payload.getEmail());
 		userRepository.saveUser(newUser);
 		return newUser;
 	}
 	
-	@GraphQLMutation
-	public SigninPayload signinUser(AuthData auth)
-	{
-		User2 user=userRepository.findByEmail(auth.getEmail());
-		if(user.getPassword().equals(auth.getPassword()))
-		{
-			return new SigninPayload(user.getId(), user);
-		}
-		throw new GraphQLException("Invalid Credentials");
-	}
+//	@GraphQLMutation
+//	public SigninPayload signinUser(AuthData auth)
+//	{
+//		User2 user=userRepository.findByEmail(auth.getEmail());
+//		if(user.getPassword().equals(auth.getPassword()))
+//		{
+//			return new SigninPayload(user.getId(), user);
+//		}
+//		throw new GraphQLException("Invalid Credentials");
+//	}
 	
 	@GraphQLMutation
 	public Vote createVote(String linkId, String userId)

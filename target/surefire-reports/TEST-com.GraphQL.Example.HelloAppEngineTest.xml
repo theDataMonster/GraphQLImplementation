@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="com.GraphQL.Example.HelloAppEngineTest" time="0.024" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="com.GraphQL.Example.HelloAppEngineTest" time="0.012" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_191\jre\bin"/>
@@ -27,7 +27,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 10"/>
-    <property name="classworlds.conf" value="C:\Users\pratyushd\TDMWorkspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf7448064043154776115.tmp"/>
+    <property name="classworlds.conf" value="C:\Users\pratyushd\TDMWorkspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf1115919774140933593.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_191\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jre1.8.0_191/bin/server;C:/Program Files/Java/jre1.8.0_191/bin;C:/Program Files/Java/jre1.8.0_191/lib/amd64;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\pratyushd\AppData\Local\Microsoft\WindowsApps;C:\Users\pratyushd\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin;D:\appengine-java-sdk-1.9.73;C:\Users\pratyushd\AppData\Local\Google\Cloud SDK\google-cloud-sdk\platform\gsutil\gslib;C:\Users\pratyushd\Downloads\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin;;C:\Users\pratyushd\Downloads\eclipse-jee-2019-03-R-win32-x86_64\eclipse;;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -61,5 +61,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.GraphQL.Example.HelloAppEngineTest" name="test" time="0.024"/>
+  <testcase classname="com.GraphQL.Example.HelloAppEngineTest" name="test" time="0.012"/>
 </testsuite>

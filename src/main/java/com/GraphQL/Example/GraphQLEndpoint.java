@@ -1,5 +1,7 @@
 package com.GraphQL.Example;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.GraphQL.Example.Auth.AuthContext;
+import com.GraphQL.Example.Auth.IdTokenVerifierAndParser;
 import com.GraphQL.Example.Exceptions.SanitizedError;
 import com.GraphQL.Example.LinkQuery.Mutation;
 import com.GraphQL.Example.LinkQuery.Query;
@@ -20,15 +23,14 @@ import com.GraphQL.Example.model.LinkRepository;
 import com.GraphQL.Example.model.User2;
 import com.GraphQL.Example.model.UserRepository;
 import com.GraphQL.Example.model.VoteRepository;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.server.spi.response.UnauthorizedException;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 //import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 
 import graphql.ExceptionWhileDataFetching;
 import graphql.GraphQLError;
@@ -107,10 +109,10 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
 	protected GraphQLContext createContext(Optional<HttpServletRequest> request, Optional<HttpServletResponse> response)
 	{
 		//com.google.api.server.spi.auth.common.User googleUser = null;
-		UserService userService=UserServiceFactory.getUserService();
-		
-			User userserv=userService.getCurrentUser();
-			User2 user=userRepository.findByEmail(userserv.getEmail());
+//		UserService userService=UserServiceFactory.getUserService();
+//		
+//			User userserv=userService.getCurrentUser();
+//			User2 user=userRepository.findByEmail(userserv.getEmail());
 		
 		
 //		User2 user = null;
@@ -126,6 +128,35 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
 //				.map(id -> id.replace("Bearer ", ""))
 //				.map(userRepository::findById)
 //				.orElse(null);
+		
+		String token=request.map(req -> req.getHeader("Authorization"))
+			.filter(id-> !id.isEmpty())
+				.map(id -> id.replace("Bearer ", "")).orElse(null);
+		
+		GoogleIdToken.Payload payload=null;
+		try {
+			payload = IdTokenVerifierAndParser.getPayload(token);
+		} catch (IOException | GeneralSecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String name=(String) payload.get("name");
+		String email= payload.getEmail();
+		
+		if(email==null)
+		{
+			logger.severe("email not found");
+		}
+		
+			User2 user=null;
+			try {
+				user = userRepository.findByEmail(email);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
 		
 		
 		return new AuthContext(user, request, response);
